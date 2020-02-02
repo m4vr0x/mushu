@@ -2,7 +2,7 @@
 
 import pymediainfo
 
-media_path = "/Users/vinz/Documents/Media_scan/TV-SHOWS-Real/Young Sheldon/S01/Young.Sheldon.S01E02.Rockets.Communists.and.the.Dewey.Decimal.System.720p.AMZN.WEB-DL.DDP5.1.H.264-NTb.mkv"
+# media_path = "/Users/vinz/Documents/Media_scan/TV-SHOWS-Real/Young Sheldon/S01/Young.Sheldon.S01E02.Rockets.Communists.and.the.Dewey.Decimal.System.720p.AMZN.WEB-DL.DDP5.1.H.264-NTb.mkv"
 
 def media_info(media_path):
 
@@ -24,4 +24,5 @@ def media_info(media_path):
         if track.track_type == 'Text':
             print (track.track_id, track.track_type, track.format, track.language)
 
-media_info(media_path)
+if __name__ == "__main__":
+    media_info(media_path)

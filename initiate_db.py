@@ -8,6 +8,12 @@ import pymongo
 
 def list_episode(dir_path, db_collection, db_client, db_name):
 
+    try:
+        db_client.server_info()
+    except pymongo.errors.ServerSelectionTimeoutError as err:
+        error_mesg = ('!Error! Impossible to connect to the database')
+        sys.exit(error_mesg)
+
     db_client.drop_database(db_name)
 
     if not os.path.isdir(dir_path):

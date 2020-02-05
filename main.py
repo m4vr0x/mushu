@@ -13,15 +13,9 @@ db_name = "media_scan"
 collection_name = "files"
 
 db_client = pymongo.MongoClient("mongodb://localhost:27017/",serverSelectionTimeoutMS=3)
-db_collection = db_client.db_name.collection_name
+db_collection = (db_client[db_name])[collection_name]
 
 def main():
-
-    try:
-        db_client.server_info()
-    except pymongo.errors.ServerSelectionTimeoutError as err:
-        error_mesg = ('!Error! Impossible to connect to the database')
-        sys.exit(error_mesg)
 
     initiate_db.list_episode(dir_path, db_collection, db_client, db_name)
 

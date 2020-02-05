@@ -20,10 +20,15 @@ def list_episode(dir_path, db_collection, db_client, db_name):
         error_mesg = (f'!Error! The specified base directory does not exist:\n\t{dir_path}')
         sys.exit(error_mesg)
 
-    for paths, dirnames, files in os.walk(dir_path):
-        file_path = paths
+    for file_path, dir_name, file in os.walk(dir_path):
 
-        for file_name in files:
+        if re.search('^.+Kaamelott.+$', file_path): continue
+
+        # print(f'\nfile_path:{file_path}\ndir_name:{dir_name}\nfile:{file}')
+
+        for file_name in file:
+            # if re.search('^.+Kaamelott.+$', file_name): continue
+
             if fnmatch.fnmatch(file_name, '[!._]*') and file_name.endswith(('.mkv', '.avi')):
 
                 path_match = re.search('^'+dir_path+'\/(.+)\/[Ss](.+)$', file_path)
@@ -34,7 +39,7 @@ def list_episode(dir_path, db_collection, db_client, db_name):
                     error_mesg = (f'!Error! Impossible to parse:\n\t{file_path}')
                     sys.exit(error_mesg)
 
-                file_match = re.search('^(.+).[Ss]([0-9][0-9])\.*[Ee]([0-9][0-9]).+$', file_name)
+                file_match = re.search('^(.+).[Ss]([0-9][0-9])\.*[Ee]([0-9]*[0-9][0-9]).+$', file_name)
                 if file_match:
                     file_show_name = file_match.group(1)
                     file_season_number = file_match.group(2)

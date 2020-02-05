@@ -3,8 +3,6 @@
 import pymediainfo
 import os
 
-# media_path = "/Users/vinz/Documents/Media_scan/TV-SHOWS-Real/That '70s Show/S01/That.'70s.Show.S01.E01.DVD-Towel.mkv"
-
 def media_info(db_collection):
 
     for media_path in db_collection.distinct("full_path"):

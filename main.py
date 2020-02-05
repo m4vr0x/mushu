@@ -6,8 +6,8 @@ import sys
 import initiate_db
 import analyse_media
 
-# dir_path = '/Users/vinz/Documents/Media_scan/TV-SHOWS-Fake'
-dir_path = '/Users/vinz/Documents/Media_scan/TV-SHOWS-Real'
+# dir_path = '/Users/vinz/Documents/Media_scan/TV-SHOWS-Real'
+dir_path = '/Volumes/GoogleDrive/My Drive/Hulk/TV Shows'
 
 db_name = "media_scan"
 collection_name = "files"

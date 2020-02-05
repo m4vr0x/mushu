@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import pymongo
+import sys
 
 import initiate_db
 import analyse_media
@@ -8,25 +9,23 @@ import analyse_media
 # dir_path = '/Users/vinz/Documents/Media_scan/TV-SHOWS-Fake'
 dir_path = '/Users/vinz/Documents/Media_scan/TV-SHOWS-Real'
 
-db_client = pymongo.MongoClient("mongodb://localhost:27017/")
-db_name = db_client["media_scan"]
-db_collection = db_name["files"]
+db_name = "media_scan"
+collection_name = "files"
+
+db_client = pymongo.MongoClient("mongodb://localhost:27017/",serverSelectionTimeoutMS=3)
+db_collection = db_client.db_name.collection_name
 
 def main():
 
-    # # DEBUG
-    # pass
-    # # DEBUG
+    try:
+        db_client.server_info()
+    except pymongo.errors.ServerSelectionTimeoutError as err:
+        error_mesg = ('!Error! Impossible to connect to the database')
+        sys.exit(error_mesg)
 
-    initiate_db.list_episode(dir_path, db_collection)
+    initiate_db.list_episode(dir_path, db_collection, db_client, db_name)
 
-    # # DEBUG
-    # for x in db_collection.find():
-    #   print(x)
-    # # DEBUG
-
-    for media_path in db_collection.distinct("full_path"):
-        analyse_media.media_info(media_path)
+    analyse_media.media_info(db_collection)
 
 
 if __name__ == "__main__":

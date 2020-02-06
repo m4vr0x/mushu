@@ -4,6 +4,8 @@ ARG PIP_PACKAGES="pymongo"
 
 RUN apt-get update && apt-get install -qqy \
       sudo \
+      apt-utils \
+      gnupg \
       wget && \
       wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add - && \
       echo "deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.2 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list && \

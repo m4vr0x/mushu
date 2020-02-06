@@ -2,10 +2,10 @@ FROM python:slim-buster
 
 ARG PIP_PACKAGES="pymongo"
 
-RUN apt-get install -qqy \
+RUN apt-get update && apt-get install -qqy \
       sudo \
       git \
-      mongo \
+      mongodb-org \
       python3-pip \
       python3-dev \
       python3-setuptools \

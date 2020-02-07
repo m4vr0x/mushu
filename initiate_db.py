@@ -27,8 +27,6 @@ def list_episode(dir_path, db_collection, db_client, db_name):
         # print(f'\nfile_path:{file_path}\ndir_name:{dir_name}\nfile:{file}')
 
         for file_name in file:
-            # if re.search('^.+Kaamelott.+$', file_name): continue
-
             if fnmatch.fnmatch(file_name, '[!._]*') and file_name.endswith(('.mkv', '.avi')):
 
                 path_match = re.search('^'+dir_path+'\/(.+)\/[Ss](.+)$', file_path)

@@ -36,7 +36,7 @@ def list_episode(dir_path, db_collection, db_client, db_name):
                     path_show_name = path_match.group(1)
                     path_season_number = path_match.group(2)
                 else:
-                    error_mesg = (f'!Error! Impossible to parse:\n\t{file_path}')
+                    error_mesg = (f'!Error! Impossible to parse file path:\n\t{file_path}')
                     sys.exit(error_mesg)
 
                 file_match = re.search('^(.+).[Ss]([0-9][0-9])\.*[Ee]([0-9]*[0-9][0-9]).+$', file_name)
@@ -45,7 +45,7 @@ def list_episode(dir_path, db_collection, db_client, db_name):
                     file_season_number = file_match.group(2)
                     file_episode_number = file_match.group(3)
                 else:
-                    error_mesg = (f'!Error! Impossible to parse:\n\t{file_name}')
+                    error_mesg = (f'!Error! Impossible to parse file name:\n\t{file_name}')
                     sys.exit(error_mesg)
 
                 media_dict = { "name": file_name, "full_path": (f"{file_path}/{file_name}"), "path": file_path, "base_dir": dir_path, "tv_show": path_show_name, "season_number": file_season_number, "episode_number": file_episode_number }

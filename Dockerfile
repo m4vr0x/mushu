@@ -11,10 +11,10 @@ RUN apt-get update \
     locales \
     && sed -i -e 's/# $LOCALE(.*)/$LOCALE\1/' /etc/locale.gen \
     && dpkg-reconfigure --frontend=noninteractive locales \
-    && update-locale LANG=$LOCALE
-    rm -rf /var/lib/apt/lists/* && \
-    rm -Rf /usr/share/doc && rm -Rf /usr/share/man && \
-    apt-get clean
+    && update-locale LANG=$LOCALE \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
+    && apt-get clean
 
 RUN pip3 install pymongo pymediainfo
 

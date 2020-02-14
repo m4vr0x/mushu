@@ -1,6 +1,6 @@
 FROM mongo
 
-ARG LOCALE=en_US.UTF-8
+ARG LOCALE="fr_FR ISO-8859-1"
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -qqy \
     vim \

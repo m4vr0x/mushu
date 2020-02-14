@@ -24,12 +24,10 @@ def list_episode(dir_path, db_collection, db_client, db_name):
 
         if re.search('^.+Kaamelott.+$', file_path): continue
 
-        # print(f'\nfile_path:{file_path}\ndir_name:{dir_name}\nfile:{file}')
-
         for file_name in file:
             if fnmatch.fnmatch(file_name, '[!._]*') and file_name.endswith(('.mkv', '.avi')):
 
-                path_match = re.search('^'+dir_path+'\/(.+)\/[Ss](.+)$', file_path)
+                path_match = re.search('^'+dir_path+'\/*(.+)\/[Ss](.+)$', file_path)
                 if path_match:
                     path_show_name = path_match.group(1)
                     path_season_number = path_match.group(2)

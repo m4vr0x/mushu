@@ -9,7 +9,7 @@ RUN apt-get update \
     python3-setuptools \
     python3-wheel \
     locales \
-    && sed -i -e 's/# $LOCALE(.*)/$LOCALE\1/' /etc/locale.gen \
+    && sed -i -e 's/# $LOCALE\(.*\)/$LOCALE\1/' /etc/locale.gen \
     && dpkg-reconfigure --frontend=noninteractive locales \
     && update-locale LANG=$LOCALE \
     && rm -rf /var/lib/apt/lists/* \

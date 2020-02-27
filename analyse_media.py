@@ -7,10 +7,10 @@ def media_info(db_collection):
 
     for media_path in db_collection.distinct("full_path"):
 
-        print(f'\n------\nFile analysed:\n{media_path}')
+        print(f'\n------\nFile analysed:\n{"media_path"}')
 
         from pymediainfo import MediaInfo
-        media_info = MediaInfo.parse(media_path)
+        media_info = MediaInfo.parse("media_path")
 
         if (len(list(media_info.tracks))) == 1:
             file_name = os.path.basename(media_path)

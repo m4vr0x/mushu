@@ -1,6 +1,7 @@
 FROM mongo
 
-RUN apt-get update \
+RUN add-apt-repository universe \
+    apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -qqy \
     vim \
     python3-pip \

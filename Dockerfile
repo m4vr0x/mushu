@@ -8,6 +8,7 @@ RUN add-apt-repository universe \
     python3-dev \
     python3-setuptools \
     python3-wheel \
+    mediainfo \
     locales \
     && rm -rf /var/lib/apt/lists/* \
     && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \

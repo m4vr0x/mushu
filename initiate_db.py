@@ -10,7 +10,7 @@ import main
 
 def list_episode(dir_path, db_collection, db_client, db_name):
 
-    print(f'\n=== Initiate Database')
+    print(f'\n===\n Initiate Database\n===\n')
     try:
         db_client.server_info()
     except pymongo.errors.ServerSelectionTimeoutError as err:
@@ -23,7 +23,7 @@ def list_episode(dir_path, db_collection, db_client, db_name):
         error_mesg = (f'!Error! The specified base directory does not exist:\n\t{dir_path}')
         sys.exit(error_mesg)
 
-    print(f'\n=== List files')
+    print(f'\n===\n List files\n===\n')
 
     for file_path, dir_name, file in os.walk(dir_path):
 
@@ -32,7 +32,7 @@ def list_episode(dir_path, db_collection, db_client, db_name):
         for file_name in file:
             if fnmatch.fnmatch(file_name, '[!._]*') and file_name.endswith(('.mkv', '.avi')):
 
-                print(f'\n------\nFile found: {file_name}')
+                print(f'------\nFile found: {file_name}')
 
                 path_match = re.search('^'+dir_path+'\/*(.+)\/[Ss](.+)$', file_path)
                 if path_match:

@@ -35,7 +35,7 @@ def main():
 
     initiate_db.list_episode(dir_path, db_collection, db_client, db_name)
 
-    print(f'\n=== Analyse files')
+    print(f'\n===\n Analyse files\n===\n')
     analyse_media.media_info(db_collection)
 
 

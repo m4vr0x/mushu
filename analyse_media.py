@@ -7,6 +7,8 @@ def media_info(db_collection):
 
     for media_path in db_collection.distinct("full_path"):
 
+        print(f'\n------\nFile analysed:\n{media_path}')
+
         from pymediainfo import MediaInfo
         media_info = MediaInfo.parse(media_path)
 

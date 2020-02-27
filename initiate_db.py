@@ -6,8 +6,11 @@ import fnmatch
 import re
 import pymongo
 
+import main
+
 def list_episode(dir_path, db_collection, db_client, db_name):
 
+    print(f'\n=== Initiate Database')
     try:
         db_client.server_info()
     except pymongo.errors.ServerSelectionTimeoutError as err:
@@ -20,12 +23,16 @@ def list_episode(dir_path, db_collection, db_client, db_name):
         error_mesg = (f'!Error! The specified base directory does not exist:\n\t{dir_path}')
         sys.exit(error_mesg)
 
+    print(f'\n=== List files')
+
     for file_path, dir_name, file in os.walk(dir_path):
 
         if re.search('^.+Kaamelott.+$', file_path): continue
 
         for file_name in file:
             if fnmatch.fnmatch(file_name, '[!._]*') and file_name.endswith(('.mkv', '.avi')):
+
+                print(f'\n------\nFile found: {file_name}')
 
                 path_match = re.search('^'+dir_path+'\/*(.+)\/[Ss](.+)$', file_path)
                 if path_match:

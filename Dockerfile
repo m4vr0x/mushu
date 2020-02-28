@@ -8,6 +8,7 @@ RUN apt-get update \
     python3-setuptools \
     python3-wheel \
     locales \
+    screen \
     software-properties-common
 
 RUN add-apt-repository universe \

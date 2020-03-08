@@ -18,7 +18,7 @@ def media_info(db_collection):
             mesg = (f'No track found for this file:\n\t{file_name}'); logging.warning(mesg)
 
         else:
-            # audio_en, audio_fr, subs_en, subs_fr = ('no',)*4
+            audio_en, audio_fr, subs_en, subs_fr = ('no',)*4
             audio_status, subs_status =  ('blank',)*2
 
             for track in media_info.tracks:
@@ -28,8 +28,6 @@ def media_info(db_collection):
                 logging.info(mesg)
 
                 mesg = track.to_data(); logging.debug(f'Track raw data\n\t{mesg}')
-
-                audio_en, audio_fr, subs_en, subs_fr = ('no',)*4
 
                 if track.track_type == 'Video':
                     resolution = track.height

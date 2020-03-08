@@ -40,11 +40,13 @@ def media_info(db_collection):
                     if track.language == 'en': audio_en = "yes"
                     if track.language == 'fr': audio_fr = "yes"
                     mesg = (f'track.language = {track.language}'); logging.debug(mesg)
+                    mesg = (f'audio_en = {audio_en} and audio_fr = {audio_fr}'); logging.debug(mesg)
 
                 if track.track_type == 'Text':
                     if track.language == 'en': subs_en = "yes"
                     if track.language == 'fr': subs_fr = "yes"
                     mesg = (f'track.language = {track.language}'); logging.debug(mesg)
+                    mesg = (f'subs_en = {subs_en} and subs_fr = {subs_fr}'); logging.debug(mesg)
 
         if (audio_en == "yes" and audio_fr == "yes"): audio_status = 'green'
         elif (audio_en == "no" and audio_fr == "no"): audio_status = 'red'

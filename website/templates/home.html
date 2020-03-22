@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <h1>TV Shows</h1>
+    <p>Database: {{B}}</p>
+
+    <br />
+    <div class="" id="listA">Shows List:</div>
+       <ul>
+         {%for SHOW in SHOW_LIST%}
+         <li><a href="{{ SHOW }}">{{ SHOW }}</a></li>
+         <a href="{{ SHOW }}-Debug">Debug View</a></li>
+
+         {%endfor%}
+       </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ TV_SHOW }}</title>
+</head>
+<body>
+    <h2>TV Show: {{ TV_SHOW }}</h2>
+    <br />
+    {% for EPISODE in EPISODE_LIST %}
+                {{ EPISODE|safe }}
+    {% endfor %}
+
+    </div>
+</body>
+</html>

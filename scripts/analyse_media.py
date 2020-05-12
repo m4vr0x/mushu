@@ -46,19 +46,6 @@ def media_info(db_collection):
                     mesg = (f'track.language = {track.language}'); logging.debug(mesg)
                     mesg = (f'subs_en = {subs_en} and subs_fr = {subs_fr}'); logging.debug(mesg)
 
-        if (audio_en == "yes" and audio_fr == "yes"): audio_status = 'green'
-        elif (audio_en == "no" and audio_fr == "no"): audio_status = 'red'
-        elif (audio_en == "no" or audio_fr == "no"): audio_status = 'yellow'
-        else:
-            mesg = (f'No color defined for audio:\n\taudio_en = {audio_en}\n\taudio_fr = {audio_fr}'); logging.warning(mesg)
-            pass
-
-        if (subs_en == "yes" and subs_fr == "yes"): subs_status = 'green'
-        elif (subs_en == "no" and subs_fr == "no"): subs_status = 'red'
-        elif (subs_en == "no" or subs_fr == "no"): subs_status = 'yellow'
-        else:
-            mesg = (f'No color defined for subs:\n\tsubs_en = {subs_en}\n\tsubs_fr = {subs_fr}'); logging.warning(mesg)
-            pass
 
         tracks_dict = { "resolution": resolution, "video_codec": video_codec, "audio_en": audio_en, "audio_fr": audio_fr, "subs_en": subs_en, "subs_fr": subs_fr, "audio_status": audio_status, "subs_status": subs_status }
         #
@@ -69,6 +56,24 @@ def media_info(db_collection):
         logging.debug(mesg)
 
         db_collection.update({"full_path": media_path}, {"$set": (tracks_dict)})
+
+def languages_info(db_collection):
+
+
+            if (audio_en == "yes" and audio_fr == "yes"): audio_status = 'green'
+            elif (audio_en == "no" and audio_fr == "no"): audio_status = 'red'
+            elif (audio_en == "no" or audio_fr == "no"): audio_status = 'yellow'
+            else:
+                mesg = (f'No color defined for audio:\n\taudio_en = {audio_en}\n\taudio_fr = {audio_fr}'); logging.warning(mesg)
+                pass
+
+            if (subs_en == "yes" and subs_fr == "yes"): subs_status = 'green'
+            elif (subs_en == "no" and subs_fr == "no"): subs_status = 'red'
+            elif (subs_en == "no" or subs_fr == "no"): subs_status = 'yellow'
+            else:
+                mesg = (f'No color defined for subs:\n\tsubs_en = {subs_en}\n\tsubs_fr = {subs_fr}'); logging.warning(mesg)
+                pass
+
 
 if __name__ == "__main__":
     media_info(db_collection)

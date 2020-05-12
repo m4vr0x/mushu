@@ -3,7 +3,6 @@
 
 import pymongo
 from flask import *
-# from bottle import route, run, template
 import pandas
 app = Flask(__name__)
 

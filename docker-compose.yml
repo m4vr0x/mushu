@@ -1,0 +1,24 @@
+version: "3"
+services:
+  app:
+    container_name: "media_scan_app"
+    build: .
+    links:
+      - db
+    ports:
+      - "5000:5000"
+    volumes:
+      # - "/Volumes/Hulk/TV Shows/HD:/files"
+      - "/Users/vinz/Theo/IT Labs/Media_scan/Testing/TV-SHOWS-Real:/files"
+    depends_on:
+      - db
+  db:
+    container_name: "media_scan_db"
+    image: mongo:4.4
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/:ro

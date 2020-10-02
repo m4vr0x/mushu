@@ -1,26 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>Home</title>
-    <!-- Required meta tags -->
-     <meta charset="utf-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" href="../static/bootstrap.css">
-</head>
-<body>
-    <h1>TV Shows</h1>
-    <p>Database: {{B}}</p>
+  <head>
+    <title>Homepage</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <br />
-    <div class="" id="listA">Shows List:</div>
-       <ul>
-         {%for SHOW in SHOW_LIST%}
-         <li><a href="{{ SHOW }}">{{ SHOW }}</a></li>
-         <a href="{{ SHOW }}-Debug">Debug View</a></li>
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/static/favicons/site.webmanifest">
+    <link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#a2251b">
+    <link rel="shortcut icon" href="/static/favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="msapplication-config" content="/static/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
 
-         {%endfor%}
-       </ul>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  </head>
+
+  <body>
+
+    <div class="jumbotron text-center">
+      <p>
+        <h1>MUSHU</h1>
+        <h6>(Media Utopic Scanner Highly Unfinished)</h6>
+      </p>
+      <p>
+        <img src="/static/images/mushu-logo.png" alt="MUSHU logo" style="width:200px;height:200px;">
+      </p>
+      <p>
+      <h3>Analyse your TV series library</h3>
+      </p>
     </div>
-</body>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <p>Test database connection</p>
+          <form action="/test_db" method="get">
+              <button type="submit" class="btn btn-primary" value="test_db">Test db</button>
+          </form>
+          <br>
+          <p>Status:</p>
+          <p>{{result}}</p>
+        </div>
+        <div class="col-sm-4">
+          <form action="/scan_dir" method="get">
+              <button type="submit" class="btn btn-primary" value="scan_dir">Scan directory</button>
+          </form>
+        </div>
+        <div class="col-sm-4">
+          <h3>Column 3</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

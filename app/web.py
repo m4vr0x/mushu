@@ -16,13 +16,15 @@ def homepage():
 
 @app.route('/test_db')
 def test_db():
-    status = scripts.test_db_connection()
-    return render_template('home.html', result=status)
+    msg, db_client = scripts.test_db_connection()
+    return render_template('home.html', result=msg)
 
 @app.route('/scan_dir')
 def scan_dir():
-    # status = scripts.test_db_connection()
-    return render_template('scan.html')
+    dir_path = "/files"
+    series_list = scripts.populate_db(dir_path)
+    return render_template('scan.html', series_list=series_list)
+
 
 # @app.route('/analyse_media_directory')
 # def scan_dir():

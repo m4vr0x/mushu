@@ -18,8 +18,8 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="/static/css/offcanvas.css">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="/static/css/main.css">
   </head>
 
   <body class="bg-light">
@@ -33,34 +33,7 @@
         </div>
       </div>
 
-      <div class="my-3 p-3 bg-white rounded box-shadow">
-        <h6 class="border-bottom border-gray pb-2 mb-0">TV shows found:</h6>
-        <div class="media pt-3">
-          <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
-            {% for show in series_list %}
-                {{ show }}<br>
-            {% else %}
-                The show list is empty
-            {% endfor %}
-            <script>
-            var series_list = {{series_list}};
-            var i;
-            for (i = 0; i < series_list.length; i++) {
-              series_list[i] + "<br>";
-            }
-            </script>
-            <script>
-            var series_list = {{series_list}};
-            for (show of series_list) {
-              document.write(show + "<br >");
-            }
-            </script>
-          </p>
-        </div>
-        <small class="d-block text-right mt-3">
-          <a href="#">All updates</a>
-        </small>
-      </div>
+    {% block content %}{% endblock %}
 
     <!-- Placed at the end of the document so the pages load faster
     ================================================== -->

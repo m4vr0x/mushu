@@ -5,49 +5,35 @@ import sys
 import re
 import fnmatch
 
-def test_db_connection():
+def setup_db_client():
     db_client = pymongo.MongoClient("db", 27017, serverSelectionTimeoutMS=5000)
-    # db_client = pymongo.MongoClient('db',
-    #                                 username='root',
-    #                                 password='password',
-    #                                 authSource='mushu',
-    #                                 authMechanism='SCRAM-SHA-256',
-    #                                 serverSelectionTimeoutMS=5000)
+    logging.info("Initialising database and collection...")
+    database = db_client["mushu"]
+    collection = database["files"]
+    return db_client, database, collection
 
+def test_db_connection(db_client):
     logging.info("Testing database connection...")
     try:
         db_client.server_info()
         msg = "Succefully connected to MongoDB"
         logging.info(msg)
-        return msg, db_client
+        return msg
     except pymongo.errors.ServerSelectionTimeoutError as e:
         msg = (f'Connection try timed out: {e}')
         logging.critical(msg)
-        return msg, db_client
+        return msg
     except Exception:
         raise
 
-def populate_db(dir_path):
-
-    msg, db_client = test_db_connection()
-
+def populate_db(dir_path, db_client, collection):
     db_list = db_client.list_database_names()
     if "mushu" in db_list:
         msg = "Database already exists and will be cleaned"
         logging.warning(msg)
         db_client.drop_database("mushu")
 
-    logging.info("Initialising database and collection...")
-    database = db_client["mushu"]
-    collection = database["files"]
-
-    # if not os.path.isdir(dir_path):
-    #     mesg = (f'The specified base directory does not exist:\n\t{dir_path}')
-    #     logging.error(mesg); sys.exit("!Error! "+mesg)
-    #     return msg
-
     logging.info("Listing files...")
-
     for file_path, dir_name, file in os.walk(dir_path):
         if re.search('^.+Kaamelott.+$', file_path): continue
 

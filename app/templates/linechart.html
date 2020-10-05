@@ -1,0 +1,25 @@
+<!--make the html element to contain the chart.-->
+<canvas id="line-chart" width="3" height="1"></canvas>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
+
+{% block javascript %}
+	<script>
+  // load the objects like you would with a normal jinja template i.e. {{ object }}, but add | tojson
+  // pass it into the parse function
+	labels = JSON.parse({{ labels | tojson }})
+	data = JSON.parse({{ data | tojson }})
+	new Chart(document.getElementById("line-chart"),{
+		"type":"line",
+		"data":
+			//using the labels here.
+			{"labels":labels,
+			"datasets":[{"label":"Sentiment Over Time",
+      			//using data here
+			"data":	data,
+			"fill":false,
+			"borderColor":"rgb(75, 192, 192)",
+			"lineTension":0.1}]},
+		"options":{}});
+  </script>
+
+{% endblock %}

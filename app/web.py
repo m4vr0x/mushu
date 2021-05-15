@@ -25,8 +25,25 @@ def test_db():
 @app.route('/scan_dir')
 def scan_dir():
     dir_path = "/files"
-    series_list = scripts.populate_db(dir_path, db_client, collection)
-    return render_template('scan-page.html.jinja', series_list=series_list)
+    try:
+        series_list = scripts.populate_db(dir_path, db_client, collection)
+        return render_template('scan-page.html.jinja', series_list=series_list)
+    except Exception as exception:
+        return render_template('error-page.html.jinja', exception=exception)
+
+def test_db_connection(db_client):
+    logging.info("Testing database connection...")
+    try:
+        db_client.server_info()
+        msg = "Succefully connected to MongoDB"
+        logging.info(msg)
+        return msg
+    except pymongo.errors.ServerSelectionTimeoutError as e:
+        msg = (f'Connection try timed out: {e}')
+        logging.critical(msg)
+        return msg
+    except Exception :
+        raise
 
 @app.route('/<show_name>')
 def serie_view(show_name):

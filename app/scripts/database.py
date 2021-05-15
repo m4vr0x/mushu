@@ -46,8 +46,10 @@ def populate_db(dir_path, db_client, collection):
                     path_show_name = path_match.group(1).replace(".", " ")
                     path_season_number = path_match.group(2)
                 else:
-                    mesg = (f'Impossible to parse file path:\n\t{file_path}')
-                    logging.error(mesg); sys.exit("!Error! "+mesg)
+                    mesg = (f'Impossible to parse file path: "{file_path}"')
+                    logging.error(mesg)
+                    raise OSError(mesg)
+
                 file_match = re.search('^(.+).[Ss]([0-9][0-9])\.*[Ee]([0-9]*[0-9][0-9]).+$', file_name)
 
                 if file_match:
@@ -55,8 +57,9 @@ def populate_db(dir_path, db_client, collection):
                     file_season_number = file_match.group(2)
                     file_episode_number = file_match.group(3)
                 else:
-                    mesg = (f'Impossible to parse file name:\n\t{file_name}')
-                    logging.error(mesg); sys.exit("!Error! "+mesg)
+                    mesg = (f'Impossible to parse file name: "{file_name}"')
+                    logging.error(mesg)
+                    raise OSError(mesg)
 
                 media_dict = { "name": file_name, "full_path": (f"{file_path}/{file_name}"), "path": file_path, "base_dir": dir_path, "tv_show": path_show_name, "season_number": file_season_number, "episode_number": file_episode_number }
                 mesg = 'media_dict content:'

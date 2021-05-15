@@ -1,0 +1,12 @@
+{% extends "page_layout.html.jinja" %}
+{% block content %}
+  <div class="my-3 p-3 bg-white rounded box-shadow">
+    <h5 class="border-bottom border-gray pb-2 mb-0">Scanning in progress...</h5>
+    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+      <span class="sr-only">Scanning ...</span>
+    </div>
+    <small class="d-block text-right mt-3">
+      <a href="/">Homepage</a>
+    </small>
+  </div>
+{% endblock %}

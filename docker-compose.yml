@@ -9,7 +9,7 @@ services:
       - "5000:5000"
     volumes:
       # - "/Volumes/Hulk/TV Shows/HD:/files"
-      - "/Users/vinz/Theo/IT Labs/Media_scan/Testing/TV-SHOWS-Real:/files"
+      - "/Users/vinz/Documents/IT_Labs/Media_scan/Testing/TV-SHOWS-Real:/files"
     depends_on:
       - db
   db:

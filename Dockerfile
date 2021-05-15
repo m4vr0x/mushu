@@ -1,25 +1,20 @@
-FROM mongo
+# Official Python image
+FROM python:3.9-slim-buster
+
+# Flask app default port
+EXPOSE 5000
 
 RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -qqy \
-    vim \
-    python3-pip \
-    python3-dev \
-    python3-setuptools \
-    python3-wheel \
-    locales \
-    screen \
-    software-properties-common
+    && apt-get install -y mediainfo \
+    wget \
+    && wget https://mediaarea.net/repo/deb/repo-mediaarea_1.0-13_all.deb \
+    && dpkg -i repo-mediaarea_1.0-13_all.deb
 
-RUN add-apt-repository universe \
-    && apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -qqy \
-    mediainfo \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
-    && apt-get clean
+COPY app /app/
+# Sets the working directory for following instructions
+WORKDIR /app
 
-RUN pip3 install pymongo pymediainfo
+RUN pip3 install -r requirements.txt
 
-RUN locale-gen en_US.UTF-8
-ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
+# Run web.py when the container launches
+CMD python web.py

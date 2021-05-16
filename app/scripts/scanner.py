@@ -3,7 +3,7 @@ import logging
 from pymediainfo import MediaInfo
 
 def media_info(collection, media_path):
-        logging.info(f'File analysed: {media_path}')
+        logging.info(f'Starting analyse of file:\n {media_path}')
         media_info = MediaInfo.parse(media_path)
 
         if (len(list(media_info.tracks))) == 1:
@@ -22,23 +22,23 @@ def media_info(collection, media_path):
                 if track.track_type == 'Video':
                     resolution = track.height
                     video_codec = track.codec_id
-                    logging.debug(f'Video track found with resolution: {resolution} and video_codec: {video_codec}')
+                    logging.debug(f'Found Video track with resolution: {resolution} and video_codec: {video_codec}')
 
                 if track.track_type == 'Audio':
                     if track.language == 'en':
                         audio_en = "yes"
-                        logging.debug(f'French audio track found')
+                        logging.debug(f'Found French audio track')
                     elif track.language == 'fr':
                         audio_fr = "yes"
-                        logging.debug(f'English audio track found')
+                        logging.debug(f'Found English audio track')
 
                 if track.track_type == 'Text':
                     if track.language == 'en':
                         subs_en = "yes"
-                        logging.debug(f'French subtitle track found')
+                        logging.debug(f'Found French sub track')
                     elif track.language == 'fr':
                         subs_fr = "yes"
-                        logging.debug(f'English subtitle track found')
+                        logging.debug(f'Found English sub track')
 
 
         tracks_dict = { "resolution": resolution, "video_codec": video_codec, "audio_en": audio_en, "audio_fr": audio_fr, "subs_en": subs_en, "subs_fr": subs_fr, "audio_status": audio_status, "subs_status": subs_status }

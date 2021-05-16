@@ -2,6 +2,7 @@ import logging
 import pymongo
 import pandas
 from flask import Flask,render_template,request,json
+from tabulate import tabulate
 
 import scripts
 
@@ -47,27 +48,27 @@ def test_db_connection(db_client):
 
 @app.route('/<show_name>')
 def serie_view(show_name):
-    episodes = collection.find({ "tv_show" : show_name })
-    df = pandas.DataFrame(data = episodes)
-    logging.debug("df")
-    logging.debug(df)
+    paths_list = collection.find({ "tv_show" : show_name },{ "_id": 0, "full_path": 1 })
 
-    for path in df['full_path']:
+    for r in paths_list:
+        path = r['full_path']
         logging.info(path)
+        #Analyse media file using path and append to db
         scripts.media_info(collection, path)
 
-    data = df.to_html(index=False, justify="left", columns = ['season_number', 'episode_number', 'name', 'resolution', 'audio_en', 'subs_en', 'audio_fr', 'subs_fr'])
+    episodes = collection.find({ "tv_show" : show_name })
+    episodes_df = pandas.DataFrame(data = episodes)
+    ### DEBUG ###
+    # msg = (tabulate(episodes_df, headers='keys', tablefmt='psql'))
+    # logging.debug(f'episodes_df:\n {msg}')
+    ### DEBUG ###
 
-    # df_full = pandas.DataFrame(data = episodes)
-    # logging.debug(df_full)
-    # logging.debug("df_full")
-    #
-    # season_list = df_full.season_number.unique()
-    # for season in season_list:
-    #     season_table = df_full[df_full['season_number'] == season]
-    #     data += season_table.to_html(index=False, justify="left", columns = ['episode_number', 'audio_en', 'audio_fr', 'audio_status', 'subs_en', 'subs_fr', 'subs_status', 'name'])
+    data_html = episodes_df.to_html(index=False, justify="left", columns = ['season_number', 'episode_number', 'name', 'resolution', 'audio_en', 'subs_en', 'audio_fr', 'subs_fr'])
+    ### DEBUG ###
+    # logging.debug(f'data: {data_html}')
+    ### DEBUG ###
 
-    return render_template('show-page.html.jinja', log='', show=show_name, episode_list=[data])
+    return render_template('show-page.html.jinja', log='', show=show_name, episode_list=[data_html])
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

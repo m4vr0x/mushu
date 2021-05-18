@@ -7,7 +7,7 @@ services:
     links:
       - db
     ports:
-      - "5000:5000"
+      - "5555:5000"
     volumes:
       # - "/Volumes/Hulk/TV Shows/HD:/files"
       - "/Users/vinz/Documents/IT_Labs/Media_scan/Testing/TV-SHOWS-Real:/files"

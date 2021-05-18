@@ -54,8 +54,11 @@ def serie_view(show_name):
         path = r['full_path']
         logging.info(path)
         #Analyse media file using path and append to db
-        scripts.media_info(collection, path)
-
+        try:
+            scripts.media_info(collection, path)
+        except Exception as exception:
+            return render_template('error-page.html.jinja', exception=exception)
+            
     episodes = collection.find({ "tv_show" : show_name })
     episodes_df = pandas.DataFrame(data = episodes)
     ### DEBUG ###

@@ -1,15 +1,18 @@
 # import os
 import logging
 from pymediainfo import MediaInfo
+from flask import render_template
 
 def media_info(collection, media_path):
-        logging.info(f'Starting analyse of file:\n {media_path}')
+        logging.info(f'Starting analyse of file:\n{media_path}')
         media_info = MediaInfo.parse(media_path)
 
         if (len(list(media_info.tracks))) == 1:
             # file_name = os.path.basename(media_path)
             file_name = media_path.rsplit('/',1)[1]
-            logging.warning(f'No track found for this file: {file_name}')
+            msg = (f'No track found for this file: "{file_name}" - Is it a video?')
+            logging.critical(msg)
+            raise OSError(msg)
         else:
             audio_en, audio_fr, subs_en, subs_fr = ('no',)*4
             audio_status, subs_status =  ('blank',)*2

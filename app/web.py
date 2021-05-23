@@ -23,6 +23,17 @@ def test_db():
     msg = scripts.test_db_connection(db_client)
     return render_template('home.html.jinja', result=msg)
 
+@app.route('/list_tv_shows')
+def list_tv_shows():
+    series_list = []
+    for show in collection.distinct("tv_show"):
+        series_list.append(show)
+    series_list = sorted(set(series_list), key=series_list.index)
+    try:
+        return render_template('scan-page.html.jinja', series_list=series_list)
+    except Exception as exception:
+        return render_template('error-page.html.jinja', exception=exception)
+
 @app.route('/scan_dir')
 def scan_dir():
     dir_path = "/files"
@@ -58,7 +69,7 @@ def serie_view(show_name):
             scripts.media_info(collection, path)
         except Exception as exception:
             return render_template('error-page.html.jinja', exception=exception)
-            
+
     episodes = collection.find({ "tv_show" : show_name })
     episodes_df = pandas.DataFrame(data = episodes)
     ### DEBUG ###

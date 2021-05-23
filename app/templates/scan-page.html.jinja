@@ -1,14 +1,19 @@
 {% extends "page_layout.html.jinja" %}
 {% block content %}
   <div class="my-3 p-3 bg-white rounded box-shadow">
-    <h6 class="border-bottom border-gray pb-2 mb-0">TV shows found:</h6>
-      <div class="list-group pt-4" >
-      {% for show in series_list %}
-        <a href="/{{ show }}" class="list-group-item list-group-item-action">{{ show }}</a>
-      {% else %}
-          The show list is empty
-      {% endfor %}
-      </div>
+    <div class="border-bottom border-gray pb-2 mb-0">
+      <h6 class="d-inline-block">List of TV shows</h6>
+      <form class="d-inline float-right" action="/scan_dir" method="get">
+          <button type="submit" class="btn btn-primary" value="scan_dir">Scan directory</button>
+      </form>
+    </div>
+    <div class="list-group pt-4" >
+    {% for show in series_list %}
+      <a href="/{{ show }}" class="list-group-item list-group-item-action">{{ show }}</a>
+    {% else %}
+      The TV Shows list is empty! Please use the "Scan directory" button first to populate the database</li>
+    {% endfor %}
+    </div>
     <small class="d-block text-right mt-3">
       <a href="/">Homepage</a>
     </small>
